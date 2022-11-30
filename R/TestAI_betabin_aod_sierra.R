@@ -15,7 +15,7 @@
 #' @param numTest Used mostly for debugging, will only test this many SNPs and ignore the rest
 #' @return A dataframe with the results of the allelic imbalance test
 #' @export
-TestSNP_aod<-function(dat,minCount=50,minSamp=10,form=cbind(alt, Num - alt) ~ 1,form2=cbind(alt, Num - alt) ~ 0,coef_ret="(Intercept)",numTest=-1)
+TestSNP_aod_Sierra<-function(dat,minCount=50,minSamp=10,form=cbind(Count, Tot - Count) ~ Allele + Sample,form2=cbind(alt, Num - alt) ~ 0,coef_ret="Allele",numTest=-1)
 {
     print("Format")
     dat<-dat %>% unite(Feature,Gene,SNP,sep="_",remove=F)
@@ -26,10 +26,15 @@ TestSNP_aod<-function(dat,minCount=50,minSamp=10,form=cbind(alt, Num - alt) ~ 1,
     print("Number to Test:")
     print(length(feats))
     print(length(unique(dat$Gene)))
-
-
-
+    dat["GeneName"]=as.character(lapply(dat[,"Gene"],function(x){strsplit(x,"_")[[1]][1]}))
+    tab<-dat %>% group_by(Allele,GeneName,Sample) %>% summarise(Tot=sum(Count)) %>% as.data.frame()
+    dat<-dat %>% spread(Allele,Count,fill=0) %>% gather(Allele,Count,alt,ref)
+    dat=inner_join(dat,tab) ##might modify so include those with 0 in peak but some in gene
+    print(head(dat))
     print("Split by SNP")
+    #return(dat)########
+    #bySNP=lapply(feats,function(x){dat[dat[,1]==x,]})
+    #names(bySNP)=feats
     bySNP=split(dat,f=dat$Feature)
     if(numTest>0){bySNP=bySNP[sample(1:length(bySNP),numTest)]}
     print("Test")
@@ -37,18 +42,22 @@ TestSNP_aod<-function(dat,minCount=50,minSamp=10,form=cbind(alt, Num - alt) ~ 1,
     nams=names(bySNP)
     out=lapply(names(bySNP),function(cur_feat){
         x=bySNP[[cur_feat]]
-        x=x %>% spread(Allele,Count,fill=0)
-        x["Num"]=x["alt"]+x["ref"]
         fit=tryCatch({betabin(form,~1,data=x)},error=function(cond){return(NULL)})
         if(is.null(fit))
         {
             return(NULL)
         }
 
-        coef=summaryAOD(fit)@Coef
+
+        coef=tryCatch({summaryAOD(fit)@Coef},error=function(cond){return(NULL)})
+        if(is.null(coef))
+        {
+            return(NULL)
+        }
         coef=data.frame(coef)
         colnames(coef)[4]="pval"
         coef["Test"]=rownames(coef)
+        coef=coef[grep(coef_ret,rownames(coef)),]
         coef["SNP"]=cur_feat
         coef["NumSamp"]=length(unique(x$Sample))
         return(coef)
@@ -63,11 +72,10 @@ TestSNP_aod<-function(dat,minCount=50,minSamp=10,form=cbind(alt, Num - alt) ~ 1,
 
     ret=data.frame(ret)
 
-
     ret=ret[order(ret$pval),]
     ret["logP"]=log(2)+pnorm(abs(ret[,"z.value"]),lower.tail=FALSE, log.p=TRUE)
     ret["pval"]=exp(ret[,"logP"])
-    ret["padj"]=p.adjust(ret[,"pval"])
+    ret["padj"]=p.adjust(ret[,"pval"],"fdr")
     ret["Gene"]=as.character(lapply(ret[,"SNP"],function(x){strsplit(x,split="_")[[1]][1]}))
     rownames(ret)=NULL
     return(ret)

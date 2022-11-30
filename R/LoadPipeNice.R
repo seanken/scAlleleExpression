@@ -46,17 +46,19 @@ if(length(fils)==length(names(fils)))
 nams=names(fils)
 }
 vargenes=c()
-if(var_gene_only)
-{
+#if(var_gene_only)
+#{
 vargenes=sub("$","/Seurat/res.var.genes.txt",dirs)
 vargenes=lapply(vargenes,function(x){scan(x,"")})
 vargenes=table(do.call(c,vargenes))
 vargenes=names(vargenes)[vargenes>numVar]
 print(paste("Number variable genes:",length(vargenes)))
-}
+#}
 lst=sub("$","/STARSolo/output/resultsSolo.out/GeneFull/filtered",dirs)
 print("Read in data")
-dat=ReadInSTARSolo(lst,var_genes=vargenes)
+vargenes_tmp=c()
+if(var_gene_only){vargenes_tmp=vargenes}
+dat=ReadInSTARSolo(lst,var_genes=vargenes_tmp)
 print("Get cells to use and celltype labels")
 cells=c()
 celltype=c()

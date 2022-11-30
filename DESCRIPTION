@@ -1,13 +1,13 @@
 Package: scAlleleExpression
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Allele Specific Expression in 10X Single Cell/Nucleus/Spatial Data
+Version: 1.0.0
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Sean",
+           family = "Simmons",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "seankenneths@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: This package loads the output of our single cell allele specific expression (ASE) pipeline (https://github.com/seanken/ASE_pipeline) and tools to perform downstream analysis with it (can also be applied to other ASE pipelines). Built to work with 10X single cell or nucleus data, though can also work with spatial data such as Visium.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
@@ -24,4 +24,4 @@ Depends:
 	DropletUtils,
 	aod,
 	glmmTMB,
-	VGAM,
+	glmGamPoi,
