@@ -51,10 +51,10 @@ GetSNPs<-function(seur=NULL,meta=NULL,genes,snp_list=c(),samp="orig.ident",snp_c
         #print(head(celltypes))
         mat=tryCatch({mat=loadSNPs2(dat[i,1],dat[i,2],dat[i,3],tab[tab[,"Samp"]==dat[i,1] & tab[,"SNP"]==dat[i,2] & tab[,"Allele"]==dat[i,3],"Name"],celltypes=celltypes,genes=genes,countCells=countCells,snp_list=snp_list,bulk=bulk)
             mat["Condition"]=dat[i,"Condition"]
-            print(head(mat))
+            #print(head(mat))
             mat
         },error=function(cond){return(NULL)})
-        print(dim(mat))
+        #print(dim(mat))
         return(mat)
     })
 
@@ -80,7 +80,7 @@ GetSNPs<-function(seur=NULL,meta=NULL,genes,snp_list=c(),samp="orig.ident",snp_c
 ##Returns Psuedobulk
 #' Load SNP data
 #'
-#' Helper function to load SNP level ASE data (new version)
+#' Helper function to load SNP level ASE data (new version). Either as pseudobulk or at cell level.
 #'
 #' @param samp Sample name
 #' @param snp Location of snps.bed file

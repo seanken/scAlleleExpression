@@ -42,5 +42,5 @@ loadSNPs2(
 A data from with SNP level ASE information
 }
 \description{
-Helper function to load SNP level ASE data (new version)
+Helper function to load SNP level ASE data (new version). Either as pseudobulk or at cell level.
 }

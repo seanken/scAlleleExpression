@@ -13,5 +13,5 @@ LoadCountMatrix(dirRaw)
 Sparse count matrix
 }
 \description{
-Loads MM data as produced by STARSolo
+Loads MM data as produced by STARSolo. Gene names are the gene name and gene id field combined.
 }

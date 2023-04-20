@@ -4,7 +4,13 @@
 \alias{LoadExpression}
 \title{Loads expression data based on meta data}
 \usage{
-LoadExpression(meta, cbc_col = "CBC", raw_col = "Raw")
+LoadExpression(
+  meta,
+  cbc_col = "CBC",
+  raw_col = "Raw",
+  samp_col = "orig.ident",
+  genes_include = NULL
+)
 }
 \arguments{
 \item{meta}{The metadata with pipeline info as produced by LoadMeta}
@@ -12,6 +18,8 @@ LoadExpression(meta, cbc_col = "CBC", raw_col = "Raw")
 \item{cbc_col}{Name of column with cell barcode info}
 
 \item{raw_col}{Which column contains raw count data}
+
+\item{samp_col}{Name of the column with sample of origin info}
 }
 \value{
 A sparse count matrix corresponding to meta
