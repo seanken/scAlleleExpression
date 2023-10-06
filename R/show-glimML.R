@@ -1,3 +1,7 @@
+##############
+##This code was taken from the AOD R package, with slight modifications
+#################
+
 #' Summary AOD
 #'
 #' Sumamry for AOD object

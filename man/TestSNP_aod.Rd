@@ -6,6 +6,7 @@
 \usage{
 TestSNP_aod(
   dat,
+  SNPLevel = T,
   minCount = 50,
   minSamp = 10,
   form = cbind(alt, Num - alt) ~ 1,
@@ -15,7 +16,9 @@ TestSNP_aod(
 )
 }
 \arguments{
-\item{dat}{A dataframe with columns corresponding to the expression of each SNP. Should be a column called Feature (the SNP of interest), Gene (the gene being tested), Sample (which individual it came from), and Allele (alt or ref). The naive model just tests for presence of allelic imbalance at the SNP, but can test for conditional as well}
+\item{dat}{A dataframe with columns corresponding to the expression of each SNP. Should be a column called Feature (the SNP of interest), Gene (the gene being tested), Sample (which individual it came from), SNP (if SNPLevel=T), and Allele (alt or ref). The naive model just tests for presence of allelic imbalance at the SNP, but can test for conditional as well. If SNPLevel=T suggest using pseudobulked data, if =F use cell level data from one individual.}
+
+\item{SNPLevel}{A binary, true by default. If false does gene level analysis. If true minSamp is set to 0.}
 
 \item{minCount}{The min number of reads over all samples for the SNP to be tested}
 

@@ -11,7 +11,9 @@ TestTransEQTL(
   pseudo = 1,
   percCut = 0.05,
   on_disk = T,
-  method = "nb"
+  method = "nb",
+  multIndiv = T,
+  form = NULL
 )
 }
 \arguments{

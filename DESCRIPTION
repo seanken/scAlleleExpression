@@ -1,6 +1,6 @@
 Package: scAlleleExpression
 Title: Allele Specific Expression in 10X Single Cell/Nucleus/Spatial Data
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: 
     person(given = "Sean",
            family = "Simmons",
@@ -21,8 +21,6 @@ Depends:
 	tictoc,
 	Matrix,
 	tidytext,
-	DropletUtils,
 	aod,
 	glmmTMB,
-	glmGamPoi,
 	ggplot2,

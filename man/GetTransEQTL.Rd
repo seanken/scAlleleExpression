@@ -17,7 +17,11 @@ GetTransEQTL(
   cbc_col = "CBC",
   cond = "PD",
   on_disk = T,
-  method = "nb"
+  method = "nb",
+  multIndiv = T,
+  form = NULL,
+  DSCells = -1,
+  pseudo = 1
 )
 }
 \arguments{
@@ -30,6 +34,10 @@ GetTransEQTL(
 \item{tab}{The SNP level allele specific information, calculated internally if not given}
 
 \item{dat}{The UMI expression data, calculated internally if not given}
+
+\item{multIndiv}{Set to true if multiple individuals, false if only onesystem()}
+
+\item{DSCells}{DS number of cells}
 }
 \value{
 A table with the results of the trans-eqtl testing

@@ -4,7 +4,7 @@
 \alias{RunBetaBin}
 \title{Run BetaBin}
 \usage{
-RunBetaBin(dat, meta_loc)
+RunBetaBin(dat, meta, multIndiv = T)
 }
 \description{
 Run BetaBin
