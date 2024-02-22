@@ -1,5 +1,6 @@
 ##############
-##This code was taken from the AOD R package, with slight modifications
+##This code was taken from the AOD R package (from show-glimML.R), with slight modifications
+##Modified code was first shared July 8, 2022
 #################
 
 #' Summary AOD
