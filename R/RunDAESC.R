@@ -1,4 +1,4 @@
-library(DAESC)
+
 library(purrr)
 library(tidyr)
 library(dplyr)
@@ -18,6 +18,7 @@ library(dplyr)
 
 RunDAESC<-function(dat,minCells=50,minSamps=10,form=~Condition,formNull=~1,method="bb")
 {
+    library(DAESC)
     dat<-dat %>% unite(Test,SNP,Gene,sep="_",remove=F) %>% spread(Allele,Count,fill=0)
     counts=split(dat,dat$Test)
     counts=counts[map_dbl(counts,function(x) dim(x)[1])>minCells]
