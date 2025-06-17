@@ -47,4 +47,6 @@ dat2=dat[dat$CellType==celltype,]
 mrk=TestSNP_aod(dat2)
 ```
 
-Where `mrk` are the results. Note this tests the intercept term, but can use other models as well by setting `form` (needs to be consistant with aod style formulas). 
+Where `mrk` are the results. Note this tests the intercept term, but can use other models as well by setting `form` (needs to be consistant with aod style formulas).
+
+This work was funded by Aligning Science Across Parkinson's [grant # ASAP-000301] through the Michael J. Fox Foundation for Parkinson's Research (MJFF).
