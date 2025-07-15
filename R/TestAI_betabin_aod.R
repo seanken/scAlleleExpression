@@ -61,6 +61,8 @@ TestSNP_aod<-function(dat,SNPLevel=T,minCount=50,minSamp=10,form=cbind(alt, Num 
     out=lapply(names(bySNP),function(cur_feat){
         x=bySNP[[cur_feat]]
         x=x %>% spread(Allele,Count,fill=0)
+	if(!("ref" %in% colnames(x))){x["ref"]=0}
+	if(!("alt" %in% colnames(x))){x["alt"]=0}
         x["Num"]=x["alt"]+x["ref"]
         fit=tryCatch({modelFitFunction(form,data=x,link=link)},error=function(cond){print(cond);return(NULL)})
         #fit=tryCatch({modelFitFunction(form,random=~1,data=x,link=link)},error=function(cond){return(NULL)})
